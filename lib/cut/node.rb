@@ -14,7 +14,7 @@ module Cut
     end
 
     def value
-      node.text
+      node.try(:text)
     end
 
     private
