@@ -9,8 +9,8 @@ module Cut
       @@selector = new_selector
     end
 
-    def attribute(attr_name, options = {})
-      attributes << Attribute.new(attr_name, options)
+    def map(*args)
+      add_mapping(*args)
     end
 
     def all(options = {})
@@ -23,23 +23,23 @@ module Cut
 
     private
 
-    def attributes
-      @@attributes ||= []
+    def mappings
+      @@mappings ||= []
+    end
+
+    def add_mapping(name, type, options)
+      mappings << Mapping.new(name, options)
+      send(:attribute, name, type)
     end
 
     def parse(response)
       response.css(@@selector).map do |node|
         new.tap do |instance|
-          attributes.each do |attr|
-            instance.send("#{attr.name}=", typecast(node.at_css(attr.selector).value, attr.type))
+          mappings.each do |mapping|
+            instance.send("#{mapping.name}=", node.at_css(mapping.selector).value)
           end
         end
       end
-    end
-
-    # TODO: IMPLEMENT ME
-    def typecast(value, type)
-      value.to_s
     end
 
   end

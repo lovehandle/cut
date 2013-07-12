@@ -15,7 +15,8 @@ Gem::Specification.new do |spec|
 
   runtime_dependencies = {
     'httparty' => '~> 0.11.0',
-    'nokogiri' => '~> 1.6.0'
+    'nokogiri' => '~> 1.6.0',
+    'virtus'   => '~> 0.5.5'
   }
 
   runtime_dependencies.each {|lib, version| spec.add_runtime_dependency(lib, version) }
