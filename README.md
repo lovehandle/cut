@@ -39,6 +39,9 @@ Return Results:
 ```ruby
 SearchResult.all(keywords: "war and peace")
 #=> [#<SearchResult:0x007fd18be96588 @title="War and Peace - Wikipedia, the free encyclopedia">, #<SearchResult:0x007fd18b97c098 @title="War and Peace (1956) - IMDb">, #<SearchResult:0x007fd18b986188 @title="War and Peace (Vintage Classics): Leo Tolstoy, Richard Pevear ...">, #<SearchResult:0x007fd18b874038 @title="War and Peace by graf Leo Tolstoy - Free Ebook - Project Gutenberg">, #<SearchResult:0x007fd18b8b46b0 @title="SparkNotes: War and Peace">, #<SearchResult:0x007fd18bc070d8 @title="War and Peace by Leo Tolstoy - Reviews, Discussion, Bookclubs, Lists">, #<SearchResult:0x007fd18bf7c8d0 @title="War and Peace - The Literature Network">, #<SearchResult:0x007fd18bf7a0f8 @title="War and Peace - graf Leo Tolstoy - Google Books">, #<SearchResult:0x007fd18bfc2d58 @title="Images for war and peace">, #<SearchResult:0x007fd189397be8 @title="War and Peace - Planet PDF">, #<SearchResult:0x007fd1893c6268 @title="War and Peace - Shmoop">, #<SearchResult:0x007fd1895fe0f8 @title="News for war and peace">]
+
+SearchResult.first(keywords: "war and peace")
+#=> #<SearchResult:0x007fd18be96588 @title="War and Peace - Wikipedia, the free encyclopedia">
 ```
 
 

@@ -14,11 +14,11 @@ module Cut
     end
 
     def all(options = {})
-      endpoint = @url.dup
-      options.each {|key,value| endpoint.gsub!("{{#{key}}}", CGI.escape(value)) }
-      response = Client.get(endpoint)
+      Client.get(@url, options).css(@selector).map {|node| from_node(node) }
+    end
 
-      parse(response)
+    def first(options = {})
+      from_node(Client.get(@url, options).at_css(@selector))
     end
 
     private
@@ -32,12 +32,10 @@ module Cut
       send(:attribute, name, type)
     end
 
-    def parse(response)
-      response.css(@selector).map do |node|
-        new.tap do |instance|
-          mappings.each do |mapping|
-            instance.send("#{mapping.name}=", node.at_css(mapping.selector).value)
-          end
+    def from_node(node)
+      new.tap do |instance|
+        mappings.each do |mapping|
+          instance.send("#{mapping.name}=", node.at_css(mapping.selector).value)
         end
       end
     end

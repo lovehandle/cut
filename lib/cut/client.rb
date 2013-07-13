@@ -1,12 +1,14 @@
 module Cut
   class Client
 
-    def self.get(endpoint)
-      new(endpoint).get
+    def self.get(*args)
+      new(*args).get
     end
 
-    def initialize(endpoint)
-      @endpoint = endpoint
+    def initialize(endpoint, parameters = {})
+      @endpoint = parameters.inject(endpoint) do |str, param|
+        str.gsub("{{#{param.first}}}", CGI.escape(param.last))
+      end
     end
 
     def get
