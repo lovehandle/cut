@@ -2,11 +2,11 @@ module Cut
   module ClassMethods
 
     def url(new_url)
-      @@url = new_url
+      @url = new_url
     end
 
     def selector(new_selector)
-      @@selector = new_selector
+      @selector = new_selector
     end
 
     def map(*args)
@@ -14,7 +14,7 @@ module Cut
     end
 
     def all(options = {})
-      endpoint = @@url.dup
+      endpoint = @url.dup
       options.each {|key,value| endpoint.gsub!("{{#{key}}}", CGI.escape(value)) }
       response = Client.get(endpoint)
 
@@ -24,7 +24,7 @@ module Cut
     private
 
     def mappings
-      @@mappings ||= []
+      @mappings ||= []
     end
 
     def add_mapping(name, type, options)
@@ -33,7 +33,7 @@ module Cut
     end
 
     def parse(response)
-      response.css(@@selector).map do |node|
+      response.css(@selector).map do |node|
         new.tap do |instance|
           mappings.each do |mapping|
             instance.send("#{mapping.name}=", node.at_css(mapping.selector).value)
