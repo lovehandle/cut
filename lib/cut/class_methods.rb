@@ -35,7 +35,7 @@ module Cut
     def from_node(node)
       new.tap do |instance|
         mappings.each do |mapping|
-          instance.send("#{mapping.name}=", node.at_css(mapping.selector).value)
+          instance.send("#{mapping.name}=", mapping.value_from_node(node))
         end
       end
     end
